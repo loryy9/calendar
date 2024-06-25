@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <script>
+        window.onload = function () {
+
+            let cc = document.getElementById('card-container');
+            cc.innerHTML = "";
+
+            fetch('./json/product.json')
+                .then(response => response.json())
+                .then(data => {
+
+                    function getColors(arr) {
+                        let out = "";
+                        arr.forEach(element => {
+                            out += `<input name="color" type="radio" style="background: ${element}"></input>`;
+                        });
+                        return out;
+                    }
+
+                    let i = 0;
+
+                    function newCard(pr) {
+                        let hhh = `
+                <div class="card">
+                    <a style="text-decoration: none;color:black;" href="product.html?id=${i}">
+                    <div class="image">
+                        <img src="${pr.image[0]}"></img>
+                    </div>
+                    <div class="title">
+                        <h1>${pr.title}</h1>
+                    </div>
+                    <div class="price">
+                        <p>${pr.price}</p>
+                    </div>
+                    <div id="color-selector" class="color-selector">
+                        ${getColors(pr.colors)}
+                    </div>
+                    </a>
+                </div>
+            `;
+                        i++;
+                        return hhh;
+                    }
+
+                    function getShop() {
+                        let url = document.location.search.split('=');
+                        return url[url.length - 1];
+                    }
+
+                    data.prodotti.forEach(element => {
+                        if (element.type.includes(getShop()))
+                            cc.innerHTML = cc.innerHTML.concat(newCard(element));
+                    });
+
+                    if (cc.innerHTML === "") {
+                        cc.innerHTML = `<div class="center" style="width: 100%;">
+                    <p>In costruzione</p>
+                </div>`;
+                    }
+
+
+
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="../sources/logo/logo.png" alt="Logo"></a>
+            </div>
+            <input type="checkbox" id="toggle-menu" class="toggle-menu">
+            <label for="toggle-menu" class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </label>
+            <ul class="nav-links">
+                <li>
+                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
+                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="../sources/arrow.png"
+                                alt=""></span></label>
+                    <ul class="submenu">
+                        <li><a href="#link1">Link 1</a></li>
+                        <li><a href="#link2">Link 2</a></li>
+                        <li><a href="#link3">Link 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="./shop.html?id=donna">Donna</a></li>
+                <li><a href="./shop.html?id=uomo">Uomo</a></li>
+                <li><a href="./shop.html?id=bambino">Bambino</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="shop" id="shop">
+            <div class="section">
+                <h1>Offerte</h1>
+            </div>
+            <div class="card-container" id="card-container">
+
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

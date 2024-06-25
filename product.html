@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli del Prodotto</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/product.css">
+    <script>
+        let global;
+
+        function getIndex() {
+            let url = document.location.search.split('=');
+            return (parseInt(url[url.length - 1]));
+        }
+
+        function changePic(highlight) {
+            let pic = document.getElementById('product-img');
+            pic.src = global.prodotti[getIndex()].image[highlight];
+            console.log(global.prodotti[getIndex()].image[highlight]);
+        }
+
+        window.onload = function () {
+            let ps = document.getElementById('product-section');
+            let taglie = ["S", "M", "L", "XL"];
+
+            fetch('./json/product.json')
+                .then(response => response.json())
+                .then(data => {
+                    global = data;
+                    let i = -1;
+
+                    function getSize(arr) {
+                        let out = "";
+                        for (let i = 0; i < taglie.length; i++) {
+                            if (arr.includes(taglie[i])) {
+                                out += `<p style="background-color: #F4F4F4; border: 1px solid #aaaaaa;">${taglie[i]}</p>`;
+                            } else {
+                                out += `<p style="text-decoration: line-through;border: 1px solid #aaaaaa;">${taglie[i]}</p>`;
+                            }
+                        }
+                        return out;
+                    }
+
+                    function getColors(arr) {
+                        let out = "";
+                        arr.forEach(element => {
+                            out += `<div><input name="color" type="radio" style="background: ${element}">${element}</input></div>`;
+                        });
+                        return out;
+                    }
+
+                    function getImage(arr) {
+                        i++;
+                        return arr[i];
+                    }
+
+                    function getProduct(pr) {
+                        let hhh = `
+                        <div class="product-image">
+                            <img id="product-img" src="${pr.image[0]}">
+                            <div class="image-selector">
+                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}" autofocus>
+                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}">
+                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}">
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <h4>LA BOTTEGA CREATIVA</h4>
+                            <h1 id="product-title">${pr.title}</h1>
+                            <h3>${pr.price} EUR<h3>
+                            <div class="color-text">
+                                <h2>Colore</h2>
+                            </div>
+                            <div id="color-selector" class="color-selector">
+                                ${getColors(pr.colors)}
+                            </div>
+                            <div class="size-text">
+                                <h2>Taglia</h2>
+                            </div>
+                            <div id="size-selector" class="size-selector">
+                                ${getSize(pr.sizes)}
+                            </div>
+                            <div class="shop-line">
+                                <p class="btn-shop" id="btn-shop" onclick="window.open('${pr.link}', '_blank').focus();">ORDINA ORA</p>
+                                <p class="btn-shop">
+                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="#f8f8f8" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 2.80176H7C4.24 2.80176 2 5.03176 2 7.78176V13.7618V14.7618C2 17.5118 4.24 19.7418 7 19.7418H8.5C8.77 19.7418 9.13 19.9218 9.3 20.1418L10.8 22.1318C11.46 23.0118 12.54 23.0118 13.2 22.1318L14.7 20.1418C14.89 19.8918 15.19 19.7418 15.5 19.7418H17C19.76 19.7418 22 17.5118 22 14.7618V7.78176C22 5.03176 19.76 2.80176 17 2.80176ZM8 12.8018C7.44 12.8018 7 12.3518 7 11.8018C7 11.2518 7.45 10.8018 8 10.8018C8.55 10.8018 9 11.2518 9 11.8018C9 12.3518 8.56 12.8018 8 12.8018ZM12 12.8018C11.44 12.8018 11 12.3518 11 11.8018C11 11.2518 11.45 10.8018 12 10.8018C12.55 10.8018 13 11.2518 13 11.8018C13 12.3518 12.56 12.8018 12 12.8018ZM16 12.8018C15.44 12.8018 15 12.3518 15 11.8018C15 11.2518 15.45 10.8018 16 10.8018C16.55 10.8018 17 11.2518 17 11.8018C17 12.3518 16.56 12.8018 16 12.8018Z" fill="#f8f8f8"/>
+                                    </svg>
+                                </p>
+                            </div>
+                            <div class="desc">
+                                ${pr.description}
+                            </div>
+                        </div>
+                `;
+                        return hhh;
+                    }
+
+                    ps.innerHTML = getProduct(data.prodotti[getIndex()]);
+
+
+
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="../sources/logo/logo.png" alt="Logo"></a>
+            </div>
+            <input type="checkbox" id="toggle-menu" class="toggle-menu">
+            <label for="toggle-menu" class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </label>
+            <ul class="nav-links">
+                <li>
+                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
+                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="../sources/arrow.png"
+                                alt=""></span></label>
+                    <ul class="submenu">
+                        <li><a href="#link1">Link 1</a></li>
+                        <li><a href="#link2">Link 2</a></li>
+                        <li><a href="#link3">Link 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="./shop.html?id=donna">Donna</a></li>
+                <li><a href="./shop.html?id=uomo">Uomo</a></li>
+                <li><a href="./shop.html?id=bambino">Bambino</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="product-section" id="product-section">
+
+        </div>
+    </main>
+</body>
+
+</html>

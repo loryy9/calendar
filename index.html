@@ -1,21 +1,75 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Codeluppo - HOME</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-    <script src='https://apis.google.com/js/api.js'></script>
+    <title>Ranpollo</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <script>
+        window.onload = function () {
+
+            let cc = document.getElementById('card-container');
+
+            fetch('./json/product.json')
+                .then(response => response.json())
+                .then(data => {
+
+                    function getColors(arr) {
+                        let out = "";
+                        arr.forEach(element => {
+                            out += `<input name="color" type="radio" style="background: ${element}"></input>`;
+                        });
+                        return out;
+                    }
+
+                    let i = 0;
+
+                    function newCard(pr) {
+                        let hhh = `
+                            <div class="card">
+                                <a style="text-decoration: none;color:black;" href="product.html?id=${i}">
+                                <div class="image">
+                                    <img src="${pr.image[0]}"></img>
+                                </div>
+                                <div class="title">
+                                    <h1>${pr.title}</h1>
+                                </div>
+                                <div class="price">
+                                    <p>${pr.price}</p>
+                                </div>
+                                <div id="color-selector" class="color-selector">
+                                    ${getColors(pr.colors)}
+                                </div>
+                                </a>
+                            </div>
+                        `;
+                        i++;
+                        return hhh;
+                    }
+
+                    data.prodotti.forEach(element => {
+                        if (element.type.includes("home"))
+                            cc.innerHTML = cc.innerHTML.concat(newCard(element));
+                    });
+
+
+
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+
+        }
+    </script>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
             <div class="logo">
-                <img src="../sources/logo_codeluppi.png" alt="Logo">
+                <a href="index.html"><img src="../sources/logo/logo.png" alt="Logo"></a>
             </div>
             <input type="checkbox" id="toggle-menu" class="toggle-menu">
             <label for="toggle-menu" class="hamburger">
@@ -24,72 +78,77 @@
                 <div class="line"></div>
             </label>
             <ul class="nav-links">
-                <li><a href="#">HOME</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">I NOSTRI SERVIZI</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Servizio 1</a></li>
-                        <li><a href="#">Servizio 2</a></li>
-                        <li><a href="#">Servizio 3</a></li>
+                <li>
+                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
+                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="../sources/arrow.png"
+                                alt=""></span></label>
+                    <ul class="submenu">
+                        <li><a href="#link1">Link 1</a></li>
+                        <li><a href="#link2">Link 2</a></li>
+                        <li><a href="#link3">Link 3</a></li>
                     </ul>
                 </li>
-                <li><a href="#">LE NOSTRE CONSULENZE</a></li>
-                <li><a href="#">CONTATTACI</a></li>
+                <li><a href="./shop.html?id=donna">Donna</a></li>
+                <li><a href="./shop.html?id=uomo">Uomo</a></li>
+                <li><a href="./shop.html?id=bambino">Bambino</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="hero-section">
-            <div class="image-home">
-                <img src="../sources/Commercialista-Consulente.jpg" alt="">
-                <div class="text-home">
-                    <p>BENVENUTO NELLO</p>
-                    <h1>STUDIO CODELUPPI</h1>
-                    <div class="btn-contact">
-                        <p>CONTATTACI</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-home">
-                <div class="card1">
-                    <div class="circle-img">
-                        <img src="../sources/we-are-100.png" alt="">
-                    </div>
-                    <div class="text-card">
-                        <h3>DI COSA CI OCCUPIAMO</h3>
-                        <p>
-                            Lo Studio Codeluppi nasce nel 1965, porta con se più di 50 anni di storia. Mette a disposizione la sua competenza e la sua professionalità a tutti i suoi clienti
-                        </p>
-                    </div>
-                </div>
-                <div class="card2">
-                    <div class="circle-img">
-                        <img src="../sources/we-are-100.png" alt="">
-                    </div>
-                    <div class="text-card">
-                        <h3>DI COSA CI OCCUPIAMO</h3>
-                        <p>
-                            Offriamo una gamma completa di servizi per soddisfare ogni esigenza.
-                        </p>
-                    </div>
-                </div>
-                <div class="card3">
-                    <div class="circle-img">
-                        <img src="../sources/we-are-100.png" alt="">
-                    </div>
-                    <div class="text-card">
-                        <h3>DI COSA CI OCCUPIAMO</h3>
-                        <p>
-                            La nostra esperienza è al vostro servizio per consulenze personalizzate.
-                        </p>
-                    </div>
-                </div>
+        <div class="home-section">
+            <h1 class="big-title">Affidati a noi e rendi la tua idea realtà</h1>
+            <h2 class="sub-title">Realizza ed acquista la tua maglia personalizzata</h2>
+            <div class="btn-down">
+                <h3 class="btn-down-text"><a href="#shop">Visita lo shop</a></h3>
+                <a href="#shop"><img src="../sources/arrow.png" alt="freccia"></a>
             </div>
         </div>
-        <div class="calendar-section">
-            <iframe src="https://calendar.google.com/calendar/embed?src=bellotti.lorenzo14%40gmail.com&ctz=Europe%2FRome" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <div class="shop" id="shop">
+            <div class="section">
+                <h1>Prodotti in offerta</h1>
+            </div>
+            <div class="card-container" id="card-container">
+
+            </div>
+            <div class="center" style="width: 100%;">
+                <div class="btn-shop">
+                    <p>Vedi altro</p>
+                </div>
+            </div>
         </div>
     </main>
-    <script src="../js/script.js"></script>
+    <footer>
+        <div class="social-container">
+            <img src="sources/social/ig.png">
+            <img src="sources/social/fb.png">
+        </div>    
+        <div class="footer-container">
+            <a href="chisiamo.html" class="footer-box">
+                <p>Chi siamo</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+        </div>
+    </footer>
 </body>
+
 </html>
