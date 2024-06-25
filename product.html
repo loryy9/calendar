@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli del Prodotto</title>
-    <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/product.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/product.css">
     <script>
         let global;
 
@@ -25,7 +25,7 @@
             let ps = document.getElementById('product-section');
             let taglie = ["S", "M", "L", "XL"];
 
-            fetch('./json/product.json')
+            fetch('json/product.json')
                 .then(response => response.json())
                 .then(data => {
                     global = data;
@@ -114,7 +114,7 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="../sources/logo/logo.png" alt="Logo"></a>
+                <a href="index.html"><img src="sources/logo/logo.png" alt="Logo"></a>
             </div>
             <input type="checkbox" id="toggle-menu" class="toggle-menu">
             <label for="toggle-menu" class="hamburger">
@@ -125,7 +125,7 @@
             <ul class="nav-links">
                 <li>
                     <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
-                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="../sources/arrow.png"
+                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="sources/arrow.png"
                                 alt=""></span></label>
                     <ul class="submenu">
                         <li><a href="#link1">Link 1</a></li>
@@ -133,9 +133,9 @@
                         <li><a href="#link3">Link 3</a></li>
                     </ul>
                 </li>
-                <li><a href="./shop.html?id=donna">Donna</a></li>
-                <li><a href="./shop.html?id=uomo">Uomo</a></li>
-                <li><a href="./shop.html?id=bambino">Bambino</a></li>
+                <li><a href="shop.html?id=donna">Donna</a></li>
+                <li><a href="shop.html?id=uomo">Uomo</a></li>
+                <li><a href="shop.html?id=bambino">Bambino</a></li>
             </ul>
         </nav>
     </header>

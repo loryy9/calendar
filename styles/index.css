@@ -148,7 +148,7 @@ label.dropdown span {
     align-items: flex-start;
     flex-direction: column;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
 }
 
 .section {
@@ -169,7 +169,6 @@ label.dropdown span {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     overflow: hidden;
@@ -322,6 +321,7 @@ label.dropdown span {
     background-color: #cccbcb;
     text-decoration: none;
     color: inherit;
+    border-radius: 5px;
 }
 
 .footer-box p {

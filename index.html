@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranpollo</title>
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <script>
         window.onload = function () {
 
             let cc = document.getElementById('card-container');
 
-            fetch('./json/product.json')
+            fetch('json/product.json')
                 .then(response => response.json())
                 .then(data => {
 
@@ -44,14 +44,15 @@
                                 </a>
                             </div>
                         `;
-                        i++;
                         return hhh;
                     }
 
                     data.prodotti.forEach(element => {
-                        if (element.type.includes("home"))
+                        if (element.type.includes("home")){
                             cc.innerHTML = cc.innerHTML.concat(newCard(element));
-                    });
+                        }
+                        i++;
+                    }); 
 
 
 
@@ -69,7 +70,7 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="../sources/logo/logo.png" alt="Logo"></a>
+                <a href="index.html"><img src="sources/logo/logo.png" alt="Logo"></a>
             </div>
             <input type="checkbox" id="toggle-menu" class="toggle-menu">
             <label for="toggle-menu" class="hamburger">
@@ -80,7 +81,7 @@
             <ul class="nav-links">
                 <li>
                     <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
-                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="../sources/arrow.png"
+                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="sources/arrow.png"
                                 alt=""></span></label>
                     <ul class="submenu">
                         <li><a href="#link1">Link 1</a></li>
@@ -88,9 +89,9 @@
                         <li><a href="#link3">Link 3</a></li>
                     </ul>
                 </li>
-                <li><a href="./shop.html?id=donna">Donna</a></li>
-                <li><a href="./shop.html?id=uomo">Uomo</a></li>
-                <li><a href="./shop.html?id=bambino">Bambino</a></li>
+                <li><a href="shop.html?id=donna">Donna</a></li>
+                <li><a href="shop.html?id=uomo">Uomo</a></li>
+                <li><a href="shop.html?id=bambino">Bambino</a></li>
             </ul>
         </nav>
     </header>
@@ -100,7 +101,7 @@
             <h2 class="sub-title">Realizza ed acquista la tua maglia personalizzata</h2>
             <div class="btn-down">
                 <h3 class="btn-down-text"><a href="#shop">Visita lo shop</a></h3>
-                <a href="#shop"><img src="../sources/arrow.png" alt="freccia"></a>
+                <a href="#shop"><img src="sources/arrow.png" alt="freccia"></a>
             </div>
         </div>
         <div class="shop" id="shop">
@@ -111,17 +112,13 @@
 
             </div>
             <div class="center" style="width: 100%;">
-                <div class="btn-shop">
+                <div class="btn-shop" onclick="window.open('shop.html?id=all', '_self')">
                     <p>Vedi altro</p>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <div class="social-container">
-            <img src="sources/social/ig.png">
-            <img src="sources/social/fb.png">
-        </div>    
         <div class="footer-container">
             <a href="chisiamo.html" class="footer-box">
                 <p>Chi siamo</p>
@@ -148,6 +145,10 @@
                 <img src="sources/arrow-footer.png">
             </a>
         </div>
+        <div class="social-container">
+            <img src="sources/social/ig.png">
+            <img src="sources/social/fb.png">
+        </div>    
     </footer>
 </body>
 
