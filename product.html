@@ -7,8 +7,22 @@
     <title>Dettagli del Prodotto</title>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/product.css">
+    <script src="js/navbar-scroll.js"></script>
     <script>
         let global;
+        let color_to_img = 0;
+
+
+        function getMI(arr) {
+            let out = "";
+            let i = -1;
+            arr.forEach(element => {
+                out += `<img onclick="changePic(${++i})" tabindex="${i}" src="${element}" >`;
+            });
+
+            return out;
+        }
+
 
         function getIndex() {
             let url = document.location.search.split('=');
@@ -17,8 +31,22 @@
 
         function changePic(highlight) {
             let pic = document.getElementById('product-img');
-            pic.src = global.prodotti[getIndex()].image[highlight];
-            console.log(global.prodotti[getIndex()].image[highlight]);
+            pic.src = global.prodotti[getIndex()].image[color_to_img][highlight];
+        }
+
+        function changeBg(index) {
+            let max_index = global.prodotti[getIndex()].colors.length;
+            color_to_img = index;
+            document.getElementById('image-selector').innerHTML = getMI(global.prodotti[getIndex()].image[color_to_img]);
+            document.getElementById('product-img').src = global.prodotti[getIndex()].image[color_to_img][0];
+            document.getElementById('image-selector').children[0].focus();
+            window.scrollTo(0, window.scrollY);
+
+            for (let i = 0; i < max_index; i++) {
+                document.getElementById("color-box-" + i).style.background = "transparent";
+            }
+
+            document.getElementById("color-box-" + index).style.background = "#e9e9e9";
         }
 
         window.onload = function () {
@@ -29,7 +57,6 @@
                 .then(response => response.json())
                 .then(data => {
                     global = data;
-                    let i = -1;
 
                     function getSize(arr) {
                         let out = "";
@@ -44,26 +71,27 @@
                     }
 
                     function getColors(arr) {
+                        let i = 0;
                         let out = "";
                         arr.forEach(element => {
-                            out += `<div><input name="color" type="radio" style="background: ${element}">${element}</input></div>`;
+                            out += `<div class="color-box" id="color-box-${i}" onclick="changeBg(${i})"><input name="color" type="radio" style="background: ${element}">${element}</input></div>`;
+                            i++;
                         });
                         return out;
                     }
 
-                    function getImage(arr) {
-                        i++;
-                        return arr[i];
-                    }
+                    // function getImage(arr) {
+                    //     i++;
+                    //     return arr[i];
+                    // }
+
 
                     function getProduct(pr) {
                         let hhh = `
                         <div class="product-image">
-                            <img id="product-img" src="${pr.image[0]}">
-                            <div class="image-selector">
-                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}" autofocus>
-                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}">
-                                <img onclick="changePic(${i + 1})" tabindex="${i + 1}" src="${getImage(pr.image)}">
+                            <img id="product-img" src="${pr.image[color_to_img][0]}">
+                            <div class="image-selector" id="image-selector">
+                                ${getMI(pr.image[color_to_img])}
                             </div>
                         </div>
                         <div class="product-details">
@@ -99,6 +127,9 @@
                     }
 
                     ps.innerHTML = getProduct(data.prodotti[getIndex()]);
+                    document.getElementById("color-box-0").style.background = "#e9e9e9";
+                    document.getElementById('image-selector').children[0].focus();
+                    window.scrollTo(0, 0);
 
 
 
@@ -122,21 +153,20 @@
                 <div class="line"></div>
                 <div class="line"></div>
             </label>
-            <ul class="nav-links">
-                <li>
-                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
-                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="sources/arrow.png"
-                                alt=""></span></label>
-                    <ul class="submenu">
-                        <li><a href="#link1">Link 1</a></li>
-                        <li><a href="#link2">Link 2</a></li>
-                        <li><a href="#link3">Link 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="shop.html?id=donna">Donna</a></li>
-                <li><a href="shop.html?id=uomo">Uomo</a></li>
-                <li><a href="shop.html?id=bambino">Bambino</a></li>
-            </ul>
+            <div class="nav-links">
+                <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Home</p>
+                <div class="dropdown">
+                    <p id="donna" onclick="window.open('shop.html?id=donna', '_self')">Donna</p>
+                    <div class="dropdown-content">
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Inverno</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Estate</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Felpe</p>
+                    </div>
+                </div>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=uomo', '_self')">Uomo</p>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=bambino', '_self')">Bambini</p>
+                <p class="hover-underline-animation" onclick="window.open('comingsoon.html', '_self')">Personalizza</p>
+            </div>
         </nav>
     </header>
     <main>
@@ -144,6 +174,34 @@
 
         </div>
     </main>
+    <footer>
+        <div class="footer-container">
+            <a href="chisiamo.html" class="footer-box">
+                <p>Chi siamo</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Contatti</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Instagram</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Facebook</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+            <a href="comingsoon.html" class="footer-box">
+                <p>Maps</p>
+                <img src="sources/arrow-footer.png">
+            </a>
+        </div>
+        <div class="social-container">
+            <img src="sources/social/ig.png">
+            <img src="sources/social/fb.png">
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranpollo</title>
     <link rel="stylesheet" href="styles/index.css">
+    <script src="js/navbar-scroll.js"></script>
     <script>
         window.onload = function () {
-
+            const loaderSection = document.getElementById('loader-section');
             let cc = document.getElementById('card-container');
+
+            loaderSection.style.display = 'flex';
+            const minLoadTime = 600;
+            const loadStartTime = Date.now();
 
             fetch('json/product.json')
                 .then(response => response.json())
@@ -27,46 +32,56 @@
 
                     function newCard(pr) {
                         let hhh = `
-                            <div class="card">
-                                <a style="text-decoration: none;color:black;" href="product.html?id=${i}">
+                            <div class="card" onclick="window.open('product.html?id=${i}', '_self')">
                                 <div class="image">
-                                    <img src="${pr.image[0]}"></img>
+                                    <img src="${pr.image[0][0]}"></img>
                                 </div>
                                 <div class="title">
                                     <h1>${pr.title}</h1>
                                 </div>
-                                <div class="price">
-                                    <p>${pr.price}</p>
+                                <div class="tipo">
+                                    <h3>${pr.type[0]}</h3>
                                 </div>
-                                <div id="color-selector" class="color-selector">
-                                    ${getColors(pr.colors)}
+                                <div class="last-card-line">
+                                    <div id="color-selector" class="color-selector">
+                                        ${getColors(pr.colors)}
+                                    </div>
+                                    <div class="price">
+                                        <p>${pr.price}</p>
+                                    </div>
                                 </div>
-                                </a>
                             </div>
                         `;
                         return hhh;
                     }
 
                     data.prodotti.forEach(element => {
-                        if (element.type.includes("home")){
+                        if (element.type.includes("home")) {
                             cc.innerHTML = cc.innerHTML.concat(newCard(element));
                         }
                         i++;
-                    }); 
+                    });
 
+                    const loadTimeElapsed = Date.now() - loadStartTime;
+                    const remainingTime = minLoadTime - loadTimeElapsed;
 
+                    setTimeout(() => {
+                        loaderSection.classList.add('hidden');
+                    }, remainingTime > 0 ? remainingTime : 0);
 
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
+                    loaderSection.classList.add('hidden');
                 });
-
-
         }
     </script>
 </head>
 
 <body>
+    <div class="loader-section" id="loader-section">
+        <div id="loader" class="loader"></div>
+    </div>    
     <header>
         <nav class="navbar">
             <div class="logo">
@@ -78,35 +93,36 @@
                 <div class="line"></div>
                 <div class="line"></div>
             </label>
-            <ul class="nav-links">
-                <li>
-                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
-                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="sources/arrow.png"
-                                alt=""></span></label>
-                    <ul class="submenu">
-                        <li><a href="#link1">Link 1</a></li>
-                        <li><a href="#link2">Link 2</a></li>
-                        <li><a href="#link3">Link 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="shop.html?id=donna">Donna</a></li>
-                <li><a href="shop.html?id=uomo">Uomo</a></li>
-                <li><a href="shop.html?id=bambino">Bambino</a></li>
-            </ul>
+            <div class="nav-links">
+                <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Home</p>
+                <div class="dropdown">
+                    <p id="donna" onclick="window.open('shop.html?id=donna', '_self')">Donna</p>
+                    <div class="dropdown-content">
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Inverno</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Estate</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Felpe</p>
+                    </div>
+                </div>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=uomo', '_self')">Uomo</p>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=bambino', '_self')">Bambini</p>
+                <p class="hover-underline-animation" onclick="window.open('comingsoon.html', '_self')">Personalizza</p>
+            </div>
         </nav>
     </header>
     <main>
         <div class="home-section">
-            <h1 class="big-title">Affidati a noi e rendi la tua idea realtà</h1>
-            <h2 class="sub-title">Realizza ed acquista la tua maglia personalizzata</h2>
-            <div class="btn-down">
-                <h3 class="btn-down-text"><a href="#shop">Visita lo shop</a></h3>
-                <a href="#shop"><img src="sources/arrow.png" alt="freccia"></a>
+            <div class="text-section">
+                <h1 class="big-title">Affidati a noi e rendi la tua idea realtà</h1>
+                <h2 class="sub-title">Realizza ed acquista la tua maglia personalizzata</h2>
+                <div class="btn-down">
+                    <h3 class=  "btn-down-text"><a href="#shop">Visita lo shop</a></h3>
+                    <a href="#shop"><img src="sources/arrow.png" alt="freccia"></a>
+                </div>
             </div>
         </div>
         <div class="shop" id="shop">
             <div class="section">
-                <h1>Prodotti in offerta</h1>
+                <h1>In evidenza</h1>
             </div>
             <div class="card-container" id="card-container">
 
@@ -129,26 +145,22 @@
                 <img src="sources/arrow-footer.png">
             </a>
             <a href="comingsoon.html" class="footer-box">
-                <p>Contatti</p>
+                <p>Instagram</p>
                 <img src="sources/arrow-footer.png">
             </a>
             <a href="comingsoon.html" class="footer-box">
-                <p>Contatti</p>
+                <p>Facebook</p>
                 <img src="sources/arrow-footer.png">
             </a>
             <a href="comingsoon.html" class="footer-box">
-                <p>Contatti</p>
-                <img src="sources/arrow-footer.png">
-            </a>
-            <a href="comingsoon.html" class="footer-box">
-                <p>Contatti</p>
+                <p>Maps</p>
                 <img src="sources/arrow-footer.png">
             </a>
         </div>
         <div class="social-container">
             <img src="sources/social/ig.png">
             <img src="sources/social/fb.png">
-        </div>    
+        </div>
     </footer>
 </body>
 

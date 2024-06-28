@@ -3,18 +3,22 @@
         {
             "title": "T-Shirt",
             "type": [
-                "home",
-                "maglie",
                 "donna",
+                "maglie",
                 "uomo",
-                "bambino"
+                "bambino",
+                "home"
             ],
             "price": "€9,99",
             "image": [
-                "sources/LGUERRIERA_5867.png",
-                "sources/Grigio.png",
-                "sources/PENNELLO.png",
-                "sources/logo/logo.png"
+                [
+                    "sources/LGUERRIERA_5867.png",
+                    "sources/Grigio.png"
+                ],
+                [
+                    "sources/PENNELLO.png",
+                    "sources/logo/logo.png"
+                ]
             ],
             "colors": [
                 "black",
@@ -32,14 +36,18 @@
         {
             "title": "Casual T-Shirt",
             "type": [
-                "home",
-                "donna"
+                "donna",
+                "home"
             ],
             "price": "€9,99",
             "image": [
-                "sources/LGUERRIERA_5867.png",
-                "sources/Grigio.png",
-                "sources/PENNELLO.png"
+                [
+                    "sources/LGUERRIERA_5867.png",
+                    "sources/Grigio.png"
+                ],
+                [
+                    "sources/PENNELLO.png"
+                ]
             ],
             "colors": [
                 "black",
@@ -57,14 +65,20 @@
         {
             "title": "Sporty Tee",
             "type": [
-                "maglie",
-                "uomo"
+                "uomo",
+                "maglie"
             ],
             "price": "€12,99",
             "image": [
-                "sources/Asfalto.png",
-                "sources/Blu reale.png",
-                "sources/Carta da zucchero.png"
+                [
+                    "sources/Asfalto.png"
+                ],
+                [
+                    "sources/Blu reale.png"
+                ],
+                [
+                    "sources/Carta da zucchero.png"
+                ]
             ],
             "colors": [
                 "gray",
@@ -87,9 +101,13 @@
             ],
             "price": "€8,99",
             "image": [
-                "sources/Erba.png",
-                "sources/Grigio scuro.png",
-                "sources/Grigio.png"
+                [
+                    "sources/Erba.png",
+                    "sources/Grigio scuro.png"
+                ],
+                [
+                    "sources/Grigio.png"
+                ]
             ],
             "colors": [
                 "green",
@@ -111,9 +129,13 @@
             ],
             "price": "€11,99",
             "image": [
-                "sources/Arancio.png",
-                "sources/Nero.png",
-                "sources/Viola.png"
+                [
+                    "sources/Arancio.png",
+                    "sources/Nero.png"
+                ],
+                [
+                    "sources/Viola.png"
+                ]
             ],
             "colors": [
                 "orange",
@@ -136,9 +158,13 @@
             ],
             "price": "€10,99",
             "image": [
-                "sources/Oliva.png",
-                "sources/PERVINCA.png",
-                "sources/Rosa.png"
+                [
+                    "sources/Oliva.png",
+                    "sources/PERVINCA.png"
+                ],
+                [
+                    "sources/Rosa.png"
+                ]
             ],
             "colors": [
                 "olive",
@@ -156,14 +182,18 @@
         {
             "title": "Trendy Tee",
             "type": [
-                "home",
-                "bambino"
+                "bambino",
+                "home"
             ],
             "price": "€9,99",
             "image": [
-                "sources/rosso.png",
-                "sources/Verde mela.png",
+                [
+                    "sources/rosso.png",
+                    "sources/Verde mela.png"
+                ],
+                [
                 "sources/Limone.png"
+                ]
             ],
             "colors": [
                 "red",
@@ -185,9 +215,13 @@
             ],
             "price": "€11,99",
             "image": [
-                "sources/Marrone.png",
-                "sources/Navy.png",
-                "sources/Blu reale.png"
+                [
+                    "sources/Marrone.png",
+                    "sources/Navy.png"
+                ],
+                [
+                    "sources/Blu reale.png"
+                ]
             ],
             "colors": [
                 "brown",
@@ -205,14 +239,19 @@
         {
             "title": "Minimalist Tee",
             "type": [
-                "home",
-                "maglie"
+                "uomo",
+                "maglie",
+                "home"
             ],
             "price": "€12,99",
             "image": [
-                "sources/Grigio.png",
-                "sources/PENNELLO.png",
-                "sources/Grigio.png"
+                [
+                    "sources/Grigio.png",
+                    "sources/PENNELLO.png"
+                ],
+                [
+                    "sources/Grigio.png"
+                ]
             ],
             "colors": [
                 "white",
@@ -234,9 +273,13 @@
             ],
             "price": "€10,99",
             "image": [
+                [
                 "sources/Verde mela.png",
-                "sources/Rosa.png",
-                "sources/Viola.png"
+                "sources/Rosa.png"
+                ],
+                [
+                    "sources/Viola.png"
+                ]
             ],
             "colors": [
                 "green",

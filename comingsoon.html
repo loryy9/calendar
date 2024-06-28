@@ -7,6 +7,7 @@
     <title>Ranpollo</title>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/soon.css">
+    <script src="js/navbar-scroll.js"></script>
 </script>
 </head>
 
@@ -22,21 +23,20 @@
                 <div class="line"></div>
                 <div class="line"></div>
             </label>
-            <ul class="nav-links">
-                <li>
-                    <input type="checkbox" id="nuova-collezione" class="tog-nuova-collezione">
-                    <label for="nuova-collezione" class="dropdown">Nuova Collezione<span><img src="sources/arrow.png"
-                                alt=""></span></label>
-                    <ul class="submenu">
-                        <li><a href="#link1">Link 1</a></li>
-                        <li><a href="#link2">Link 2</a></li>
-                        <li><a href="#link3">Link 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="shop.html?id=donna">Donna</a></li>
-                <li><a href="shop.html?id=uomo">Uomo</a></li>
-                <li><a href="shop.html?id=bambino">Bambino</a></li>
-            </ul>
+            <div class="nav-links">
+                <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Home</p>
+                <div class="dropdown">
+                    <p id="donna" onclick="window.open('shop.html?id=donna', '_self')">Donna</p>
+                    <div class="dropdown-content">
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Inverno</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Estate</p>
+                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Felpe</p>
+                    </div>
+                </div>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=uomo', '_self')">Uomo</p>
+                <p class="hover-underline-animation" onclick="window.open('shop.html?id=bambino', '_self')">Bambini</p>
+                <p class="hover-underline-animation" onclick="window.open('comingsoon.html', '_self')">Personalizza</p>
+            </div>
         </nav>
     </header>
     <main>
