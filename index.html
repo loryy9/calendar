@@ -1,167 +1,196 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranpollo</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <script src="js/navbar-scroll.js"></script>
-    <script>
-        window.onload = function () {
-            const loaderSection = document.getElementById('loader-section');
-            let cc = document.getElementById('card-container');
-
-            loaderSection.style.display = 'flex';
-            const minLoadTime = 600;
-            const loadStartTime = Date.now();
-
-            fetch('json/product.json')
-                .then(response => response.json())
-                .then(data => {
-
-                    function getColors(arr) {
-                        let out = "";
-                        arr.forEach(element => {
-                            out += `<input name="color" type="radio" style="background: ${element}"></input>`;
-                        });
-                        return out;
-                    }
-
-                    let i = 0;
-
-                    function newCard(pr) {
-                        let hhh = `
-                            <div class="card" onclick="window.open('product.html?id=${i}', '_self')">
-                                <div class="image">
-                                    <img src="${pr.image[0][0]}"></img>
-                                </div>
-                                <div class="title">
-                                    <h1>${pr.title}</h1>
-                                </div>
-                                <div class="tipo">
-                                    <h3>${pr.type[0]}</h3>
-                                </div>
-                                <div class="last-card-line">
-                                    <div id="color-selector" class="color-selector">
-                                        ${getColors(pr.colors)}
-                                    </div>
-                                    <div class="price">
-                                        <p>${pr.price}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        return hhh;
-                    }
-
-                    data.prodotti.forEach(element => {
-                        if (element.type.includes("home")) {
-                            cc.innerHTML = cc.innerHTML.concat(newCard(element));
-                        }
-                        i++;
-                    });
-
-                    const loadTimeElapsed = Date.now() - loadStartTime;
-                    const remainingTime = minLoadTime - loadTimeElapsed;
-
-                    setTimeout(() => {
-                        loaderSection.classList.add('hidden');
-                    }, remainingTime > 0 ? remainingTime : 0);
-
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    loaderSection.classList.add('hidden');
-                });
-        }
-    </script>
+    <link rel="icon" href="sources/ico/favicon.ico" type="image/x-icon">
+    <title>SteAgritech</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/script_yt.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
 </head>
-
 <body>
-    <div class="loader-section" id="loader-section">
-        <div id="loader" class="loader"></div>
-    </div>    
-    <header>
+    <div class="popup-info" id="popup-info">
+        <div class="popup-content">                
+            <p>Utilizziamo api di terze parti per visualizzare i video più recenti disponibili sul mio canale YouTube. Accettando i cookie avrò accesso ai tuoi dati sensibili. Ma non preoccuparti, se non vuoi accettarli potrai comunque navigare nel sito senza vedere i video più recenti su YouTube</p>
+            <button onclick="closePopupInfo()">Chiudi</button>
+        </div>
+    </div>
+
+    <div class="cookie-container" id="cookie-container">
+        <div class="cookie-text">
+            <p>Benvenuto! SteAgritech.it utilizza cookie di terze parti per migliorare la tua esperienza su questo sito. Usa il pultante "Accetta" per dare il tuo consenso. Usa il plsante "Rifiuta" per negare il consenso</p>
+            <p><span><img src="sources/cookie.png"></span><strong>Accettando, ci aiuti a offrirti un servizio migliore!</strong><span><img src="sources/cookie.png"></span></p>
+        </div>
+        <div class="cookie-button-container">
+            <div class="altre-info">
+                <p class="altre-info-button" onclick="openPopupInfo()">Scopri di più</p>
+            </div>
+            <div class="accetta-rifiuta-cookie">
+                <p class="cookie-button" id="denie-cookies">Rifiuta</p>
+                <p class="cookie-button" id="accept-cookies">Accetta</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
         <nav class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="sources/logo/logo.png" alt="Logo"></a>
+                <img src="sources/logo_bianco.png" alt="Logo">
             </div>
-            <input type="checkbox" id="toggle-menu" class="toggle-menu">
-            <label for="toggle-menu" class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </label>
             <div class="nav-links">
-                <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Home</p>
-                <div class="dropdown">
-                    <p id="donna" onclick="window.open('shop.html?id=donna', '_self')">Donna</p>
-                    <div class="dropdown-content">
-                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Inverno</p>
-                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Estate</p>
-                        <p class="hover-underline-animation" onclick="window.open('index.html', '_self')">Felpe</p>
-                    </div>
-                </div>
-                <p class="hover-underline-animation" onclick="window.open('shop.html?id=uomo', '_self')">Uomo</p>
-                <p class="hover-underline-animation" onclick="window.open('shop.html?id=bambino', '_self')">Bambini</p>
-                <p class="hover-underline-animation" onclick="window.open('comingsoon.html', '_self')">Personalizza</p>
+                <a href="./" class="select">HOME</a>
+                <a href="chisono/">CHI SONO</a>
             </div>
         </nav>
-    </header>
-    <main>
-        <div class="home-section">
-            <div class="text-section">
-                <h1 class="big-title">Affidati a noi e rendi la tua idea realtà</h1>
-                <h2 class="sub-title">Realizza ed acquista la tua maglia personalizzata</h2>
-                <div class="btn-down">
-                    <h3 class=  "btn-down-text"><a href="#shop">Visita lo shop</a></h3>
-                    <a href="#shop"><img src="sources/arrow.png" alt="freccia"></a>
-                </div>
-            </div>
-        </div>
-        <div class="shop" id="shop">
-            <div class="section">
-                <h1>In evidenza</h1>
-            </div>
-            <div class="card-container" id="card-container">
 
+        <div class="main-page">
+            <div class="left-column" id="leftColumn">
+                <div class="about-item">
+                    <img src="sources/Loghi_social/logo_titolo_studio_bianco.png" alt="laurea-logo">
+                    <span class="laurea">Laurea in Agrotecnologie per l'Ambiente e il Territorio</span>                    
+                </div>
+                <div class="titolo-piccolo">Realizzo contenuti divulgativi riguardo</div>
+                <div class="titolo-grande">MECCANIZZAZIONE AGRICOLA <br>& AGRICOLTURA</div>                
+                <div class="about-me-button">
+                    <a href="chisono/index.html">Qualcosa su di me</a>
+                </div>
+                <div class="social">
+                    <a href="https://www.instagram.com/ste.agritech/" target="_blank"><img src="sources/Loghi_social/instagram.png" alt="TikTok"></a>
+                    <a href="https://www.tiktok.com/@ste_agritech" target="_blank"><img src="sources/Loghi_social/tik-tok.png" alt="Instagram"></a>
+                    <a href="https://www.youtube.com/@ste.agritech" target="_blank" class="yt"><img src="sources/Loghi_social/youtube2.png" alt="Youtube" ></a>
+                </div>
             </div>
-            <div class="center" style="width: 100%;">
-                <div class="btn-shop" onclick="window.open('shop.html?id=all', '_self')">
-                    <p>Vedi altro</p>
+            <div class="right-column" id="rightColumn">
+                <img src="sources/foto_home2.png" alt="Foto Profilo">
+            </div>
+        </div>
+        <div class="riga-info">
+            <div class="colonna">
+                <p class="number-container"><span class="number" data-number="90000">0</span><span class="descrizione"> + <br>Followers</span></p>
+            </div>
+            <div class="colonna">
+                <p class="number-container"><span class="number" data-number="1000">0</span><span class="descrizione"> + <br>Contenuti realizzati</span></p>
+            </div>
+            <div class="colonna">
+                <p class="number-container"><span class="number" data-number="10">0</span><span class="descrizione"> + <br>Aziende soddisfatte</span></p>
+            </div>
+        </div>
+
+        <div class="trasparente">
+            <div class="contattami">
+                <h1>SteAgritech</h1>
+                <p>Ti interessa quello che faccio e vorresti collaborare con me?</p>
+                <div class="contact-button">
+                    <a href="javascript:void(0)" onclick="openPopup()">CONTATTAMI</a>
+                </div>                
+            </div>
+        </div>
+
+        <div class="popup" id="popup">
+            <div class="popup-content">                
+                <h2>CONTATTAMI</h2>
+                <p>Sulla mia pagina instagram: <br>
+                <a href="https://www.instagram.com/ste.agritech/" target="_blank">@ste.agritech</a><br>
+                O al mio indirizzo Email: <br>
+                <a href="mailto:stefano.agritech@gmail.com">stefano.agritech@gmail.com</a></p>
+                <button onclick="closePopup()">Chiudi</button>
+            </div>
+        </div>
+
+        <div class="spazio">
+            <h1>Qualche curiosità</h1>
+        </div>
+        <div class="info">
+            <div class="info-block">
+                <h1>Cosa mi chiedono le aziende?</h1>
+                <p>Le aziende desiderano principalmente pubblicizzare i loro prodotti e/o servizi attraverso contenuti divulgativi o esplicativi come post o video in modo da evidenziare tutti i vantaggi e benefici del prodotto o dei prodotti oggetti della campagna pubblicitaria.</p>
+            </div>
+            <div class="info-block">
+                <h1>Come lavoro?</h1>
+                <p>Dopo aver concordato con l’azienda quale bene o servizio pubblicizzare e il tipo di format da realizzare (post, video, stories, etc.), procedo con la creazione del contenuto unendo le mie competenze acquisite negli anni di studio e di lavoro con le informazioni fornite dall’azienda. 
+                    Il contenuto sarà poi esaminato dall’azienda e, solo dopo l’approvazione finale di quest’ultima, caricato sui profili social ste.agritech nella data e nell’orario precedentemente stabiliti.</p>
+            </div>
+        </div>
+        <div class="collaborazioni">
+            <div class="titolo-collab">
+                <h1>Alcune aziende con cui ho collaborato</h1>
+            </div>
+            <div class="contenitore-carte">
+                <!--<div class="card">
+                    <img src="sources/Loghi Aziende/2.png" alt="Logo2">
+                </div>-->
+                <div class="card">
+                    <img src="sources/Loghi Aziende/4.png" alt="Logo4">
+                </div>
+                <div class="card">
+                    <img src="sources/Loghi Aziende/5.png" alt="Logo5">
+                </div>
+                <div class="card">
+                    <img src="sources/Loghi Aziende/6.png" alt="Logo6">
                 </div>
             </div>
         </div>
-    </main>
-    <footer>
-        <div class="footer-container">
-            <a href="chisiamo.html" class="footer-box">
-                <p>Chi siamo</p>
-                <img src="sources/arrow-footer.png">
-            </a>
-            <a href="comingsoon.html" class="footer-box">
-                <p>Contatti</p>
-                <img src="sources/arrow-footer.png">
-            </a>
-            <a href="comingsoon.html" class="footer-box">
-                <p>Instagram</p>
-                <img src="sources/arrow-footer.png">
-            </a>
-            <a href="comingsoon.html" class="footer-box">
-                <p>Facebook</p>
-                <img src="sources/arrow-footer.png">
-            </a>
-            <a href="comingsoon.html" class="footer-box">
-                <p>Maps</p>
-                <img src="sources/arrow-footer.png">
+        <!--
+        <div class="recensioni-totale">
+            <div class="titolo-recensioni">
+                <h1>Alcune recensioni</h1>
+            </div>
+            <div class="recensioni">
+                <img src="sources/commento.png" alt="Recensione 1" class="recensione-img">
+                <img src="sources/commento.png" alt="Recensione 2" class="recensione-img">
+                <img src="sources/commento.png" alt="Recensione 3" class="recensione-img">
+                <img src="sources/commento.png" alt="Recensione 4" class="recensione-img">
+            </div>
+        </div>
+        -->
+        <div class="video-wrapper">
+            <div class="title-video">
+                <h1>I video più recenti su YouTube:</h1>                
+            </div>            
+            <div class="video-container">
+                <div class="video-block">
+                    <iframe class="video" id="iframe01" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="video-block">
+                    <iframe class="video" id="iframe02" frameborder="0" allowfullscreen></iframe>                    
+                </div>
+                <div class="video-block">
+                    <iframe class="video" id="iframe03" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <a href="https://www.youtube.com/@ste.agritech" target="_blank" class="subscribe-box">
+                <img src="sources/Loghi_social/youtube.png" alt="YouTube Logo">
+                <div class="text-youtube">
+                    <h1>YouTube</h1>
+                    <p>Iscriviti al mio canale</p>                
+                </div>
             </a>
         </div>
-        <div class="social-container">
-            <img src="sources/social/ig.png">
-            <img src="sources/social/fb.png">
+            
+        <div class="footer">
+            <div class="footer-column">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/ste.agritech/" target="_blank"><img src="sources/Loghi_social/instagram.png" alt="TikTok"></a>
+                    <a href="https://www.tiktok.com/@ste_agritech" target="_blank"><img src="sources/Loghi_social/tik-tok.png" alt="Instagram"></a>
+                    <a href="https://www.youtube.com/@ste.agritech" target="_blank"><img src="sources/Loghi_social/youtube2.png" alt="Youtube"></a>
+                </div>
+            </div> 
+            <div class="footer-column">
+                <a href="mailto:stefano.agritech@gmail.com">stefano.agritech@gmail.com</a>
+            </div>
+            <div class="footer-column">
+                <div class="site-map">
+                    <a href="./">HOME</a>
+                    <a href="chisono/">CHI SONO</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <p>Sviluppato da <a href="https://www.instagram.com/lb.devsite/" target="_blank"><u>LB-DevSite</u></a></p>
+            </div>
         </div>
-    </footer>
+    </div>
+    <script src="js/cookies.js"></script>
+    <script src="js/script.js"></script>    
 </body>
-
 </html>
