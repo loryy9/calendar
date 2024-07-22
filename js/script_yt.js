@@ -13,7 +13,7 @@ function initializeYouTubeAPI() {
 }
 
 function fetchAndCacheData() {
-    fetch("https://www.googleapis.com/youtube/v3/search?key=AIzaSyCu5g2KWoXXhaE6TVmg-5UzCajAZok5czk&q=ste.agritech&type=video&part=snippet&maxResults=10&channelId=UCydT7lIVxMlR2rjylvI0zAg")
+    fetch()
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Errore HTTP, stato " + response.status);
